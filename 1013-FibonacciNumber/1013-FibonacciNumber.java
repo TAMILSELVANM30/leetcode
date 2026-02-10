@@ -1,0 +1,20 @@
+// Last updated: 2/10/2026, 8:47:46 PM
+class Solution {
+    public int fib(int n) {
+      //an empty array
+      int [] dp=new int [n+1];
+      if(n==1){
+        return 1;
+      }else if (n==0){
+        return 0;
+      }else if (n>1){
+        dp[0]=0;
+        dp[1]=1;
+        for (int i =2;i<=n;i++){
+          dp[i]=dp[i-1]+dp[i-2];
+        }
+        return dp[n];
+      }
+      return n;
+    }
+}
