@@ -1,0 +1,13 @@
+// Last updated: 10/18/2026, 9:15:18 PM
+class Solution {
+    public int sumOfSquares(int[] nums) {
+        int n=nums.length;
+        int ans=0;
+        for(int i=1;i<n+1;i++){
+            if(n%i==0){
+                ans+=nums[i-1]*nums[i-1];
+            }
+        }
+        return ans;
+    }
+}
