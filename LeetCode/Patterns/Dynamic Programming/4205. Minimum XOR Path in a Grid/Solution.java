@@ -1,29 +1,17 @@
 class Solution {
-    private int ans;
-    private boolean[][][] memo;
-
     public int minCost(int[][] grid) {
-        int startVal = grid[0][0];
-        ans = Integer.MAX_VALUE;
-        memo = new boolean[grid.length][grid[0].length][1024];
-        dfs(grid, 0, 0, 0, grid.length, grid[0].length);
-        return ans;
-    }
-
-    private void dfs(int[][] grid, int i, int j, int xor, int m, int n) {
-        xor ^= grid[i][j];
-        if (ans == 0)
-            return;
-        if (memo[i][j][xor])
-            return;
-        memo[i][j][xor] = true;
-        if (i == m - 1 && j == n - 1) {
-            ans = Math.min(ans, xor);
-            return;
-        }
-        if (i + 1 < m)
-            dfs(grid, i + 1, j, xor, m, n);
-        if (j + 1 < n)
-            dfs(grid, i, j + 1, xor, m, n);
+        int n = grid[0].length;
+        boolean[][] dp = new boolean[n][1024];  // dp[j][x]: XOR x can reach column j of the row above
+        dp[0][0] = true;
+        for (int[] row : grid)
+            for (int j = 0; j < n; j++) {
+                boolean[] next = new boolean[1024];
+                for (int x = 0; x < 1024; x++)
+                    if (dp[j][x] || j > 0 && dp[j - 1][x]) next[x ^ row[j]] = true;  // from above or from the left
+                dp[j] = next;
+            }
+        int x = 0;
+        while (!dp[n - 1][x]) x++;
+        return x;
     }
 }
