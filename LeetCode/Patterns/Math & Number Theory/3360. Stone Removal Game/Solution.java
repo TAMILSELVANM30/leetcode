@@ -1,8 +1,14 @@
 class Solution {
     public boolean canAliceWin(int n) {
-        if(n<10) return false;
-        n=n-10;
-        if(n%2==0) return true;
-        return false;
+        int m=10;
+        
+        int count=0;
+        while(n>=10){
+            count++;
+            n=n-(m-1);
+
+        }
+        if(count%2==0) return false;
+        return true;
     }
 }
